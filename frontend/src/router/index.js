@@ -1,18 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ProductList from '../views/ProductList.vue';
-import ProductForm from '../views/ProductForm.vue';
-import ProductDetail from '../views/ProductDetail.vue';
+import Dashboard from '../views/Dashboard.vue';
+import Products from '../views/Products.vue';
+import Customers from '../views/Customers.vue';
+import Sales from '../views/Sales.vue';
+import Home from '../components/HomePage/Home.vue'
 
 const routes = [
-  { path: '/', component: ProductList },
-  { path: '/new', component: ProductForm },
-  { path: '/edit/:id', component: ProductForm, props: true },
-  { path: '/detail/:id', component: ProductDetail, props: true },
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+   {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: Products
+  },
+  {
+    path: '/customers',
+    name: 'Customers',
+    component: Customers
+  },
+  {
+    path: '/sales',
+    name: 'Sales',
+    component: Sales
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 });
 
 export default router;
