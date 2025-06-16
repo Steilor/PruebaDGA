@@ -1,4 +1,5 @@
-﻿using ClnArq.Application.Services;
+﻿using ClnArq.Application.Dtos;
+using ClnArq.Application.Services;
 using ClnArq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,15 +33,15 @@ namespace ClnArq.API.Controllers
 
    
         [HttpPost]
-        public async Task<ActionResult<Producto>> Create([FromBody] Producto producto)
+        public async Task<ActionResult<Producto>> Create([FromBody] ProductoDto producto)
         {
             var created = await _storeService.CreateProductoAsync(producto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return NoContent();
         }
 
     
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Producto producto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] ProductoDto producto)
         {
             if (id != producto.Id)
                 return BadRequest("ID mismatch");
