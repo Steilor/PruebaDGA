@@ -6,18 +6,18 @@ namespace ClnArq.Infrastructure.Persistence;
 
 public class ClnArqDbContext : DbContext
 {
-    public ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
-       : base(options)
+  
+
+    internal DbSet<Producto> Productos { get; set; }
+    internal DbSet<Cliente> Clientes { get; set; }
+    internal DbSet<Venta> Ventas { get; set; }
+    internal DbSet<DetalleVenta> DetallesVenta { get; set; }
+    internal DbSet<User> User { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseSqlServer("Server=MATEO\\SQLEXPRESS;Database=AduanasDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true");
     }
-
-
-    public DbSet<Producto> Productos { get; set; }
-    public DbSet<Cliente> Clientes { get; set; }
-    public DbSet<Venta> Ventas { get; set; }
-    public DbSet<DetalleVenta> DetallesVenta { get; set; }
-    public DbSet<User> User { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

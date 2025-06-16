@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClnArq.API.Controllers
 {
     [ApiController]
-    [Route("home")]
+    [Route("api/[controller]")]
     public class StoreController(IStoreService storeService) : ControllerBase
     {
         private readonly IStoreService _storeService = storeService;

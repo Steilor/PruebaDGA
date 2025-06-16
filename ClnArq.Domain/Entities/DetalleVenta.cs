@@ -11,6 +11,6 @@ public class DetalleVenta
     public Venta Venta { get; set; } = null!;
 
  
-    public int ProductoId { get; set; }
+    public Guid ProductoId { get; set; }
     public Producto Producto { get; set; } = null!;
 }
