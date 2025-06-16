@@ -5,7 +5,7 @@ namespace ClnArq.Application.Services;
 
 public interface IStoreService
 {
-    Task<IEnumerable<Producto>> GetAllProductosAsync();
+    Task<IEnumerable<ProductoDto>> GetAllProductosAsync();
     Task<ProductoDto?> GetProductoByIdAsync(Guid id);
     Task<bool> CreateProductoAsync(ProductoDto producto);
     Task<bool> UpdateProductoAsync(ProductoDto producto);
