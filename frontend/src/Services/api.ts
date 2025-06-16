@@ -41,6 +41,38 @@ const mockCustomers: Customer[] = [
     phone: '+1 809-234-5678',
     address: 'Calle Colón 456, Santiago, RD',
     createdAt: '2024-01-20'
+  },
+  {
+    id: '1',
+    name: 'Ana Pérez',
+    email: 'ana.perez@ejemplo.com',
+    phone: '+1 809-123-4567',
+    address: 'Av. Duarte 123, Santo Domingo, RD',
+    createdAt: '2024-01-15'
+  },
+  {
+    id: '2',
+    name: 'Carlos López',
+    email: 'carlos.lopez@ejemplo.com',
+    phone: '+1 809-234-5678',
+    address: 'Calle Colón 456, Santiago, RD',
+    createdAt: '2024-01-20'
+  },
+  {
+    id: '1',
+    name: 'Ana Pérez',
+    email: 'ana.perez@ejemplo.com',
+    phone: '+1 809-123-4567',
+    address: 'Av. Duarte 123, Santo Domingo, RD',
+    createdAt: '2024-01-15'
+  },
+  {
+    id: '2',
+    name: 'Carlos López',
+    email: 'carlos.lopez@ejemplo.com',
+    phone: '+1 809-234-5678',
+    address: 'Calle Colón 456, Santiago, RD',
+    createdAt: '2024-01-20'
   }
 ];
 
