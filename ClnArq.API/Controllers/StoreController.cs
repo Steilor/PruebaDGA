@@ -13,7 +13,7 @@ namespace ClnArq.API.Controllers
 
      
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Producto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ProductoDto>>> GetAll()
         {
             var productos = await _storeService.GetAllProductosAsync();
             return Ok(productos);
