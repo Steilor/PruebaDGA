@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClnArq.Infrastructure.Persistence;
 
-public class ClnArqDbContext : DbContext, IStoreService
+public class ClnArqDbContext : DbContext
 {
     public ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
        : base(options)
