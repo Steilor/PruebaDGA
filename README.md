@@ -15,6 +15,14 @@
 | **General**  | Git, GitHub                            |
 |              | Swagger / Swashbuckle                  |
 
+
+
+![image](https://github.com/user-attachments/assets/2a370803-35d4-43ed-a89f-6b017aca5df0)
+
+
+![image](https://github.com/user-attachments/assets/3e947319-0e30-4558-82f8-2a2463621c45)
+
+
 ## Instrucciones
 
 ### 1. Clonar el repositorio
