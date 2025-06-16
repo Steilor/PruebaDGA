@@ -13,9 +13,9 @@ internal class StoreService(IStoreRepository storeRepository,
     public async Task<IEnumerable<ProductoDto>> GetAllProductosAsync()
     {
         var productos = await _storeRepository.GetAllAsync();
-        var productosDto = mapper.Map<ProductoDto>(productos);
+        var productosDto = mapper.Map<IEnumerable<ProductoDto>>(productos);
 
-        return (IEnumerable<ProductoDto>)productosDto;
+        return productosDto;
     }
 
     public async Task<ProductoDto?> GetProductoByIdAsync(Guid id)
