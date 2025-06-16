@@ -9,6 +9,15 @@ namespace ClnArq.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalhostVue",
+                    policy => policy
+                        .WithOrigins("http://localhost:5173")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
 
             builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -20,6 +29,8 @@ namespace ClnArq.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseCors("AllowLocalhostVue");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
