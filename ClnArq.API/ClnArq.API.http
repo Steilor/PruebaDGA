@@ -1,6 +1,18 @@
-@ClnArq.API_HostAddress = http://localhost:5053
+@ClnArq.API_HostAddress = https://localhost:7038
 
 GET {{ClnArq.API_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+POST {{ClnArq.API_HostAddress}}/api/store
+Content-Type: application/json
+
+{
+   "nombre": "Nevera",
+  "descripcion": "Nevera Samsum",
+  "precio": 7000,
+  "stock": 10
+}
 
 ###

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClnArq.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/store")]
     public class StoreController(IStoreService storeService) : ControllerBase
     {
         private readonly IStoreService _storeService = storeService;
@@ -33,7 +33,7 @@ namespace ClnArq.API.Controllers
 
    
         [HttpPost]
-        public async Task<ActionResult<Producto>> Create([FromBody] ProductoDto producto)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductoDto producto)
         {
             var created = await _storeService.CreateProductoAsync(producto);
             return NoContent();
