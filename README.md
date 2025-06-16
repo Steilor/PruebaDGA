@@ -1,4 +1,4 @@
--Sistema de Gestión de Productos y Ventas
+## Sistema de Gestión de Productos y Ventas
 ## Tecnologías utilizadas
 
 | Capa         | Tecnología / Librería                  |
@@ -7,9 +7,7 @@
 |              | Entity Framework Core                  |
 |              | SQL Server                             |
 |              | AutoMapper                             |
-|              | xUnit + Moq (pruebas unitarias)        |
 |              | Microsoft.Extensions.DependencyInjection |
-|              | System.IdentityModel.Tokens.Jwt (JWT)  |
 | **Frontend** | Vue 3 (Composition API)                |
 |              | Vite + Tailwind CSS                    |
 |              | Axios                                  |
