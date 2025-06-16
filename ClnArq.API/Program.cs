@@ -1,5 +1,6 @@
 using ClnArq.Infrastructure.Extensions;
 using ClnArq.Application.Extensions;
+using ClnArq.Infrastructure.Persistence;
 namespace ClnArq.API
 {
     public class Program
@@ -8,16 +9,13 @@ namespace ClnArq.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            // 1) Infrastructure (DbContext + Repositorios)
+
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            // 2) Application (AutoMapper, validaciones, etc.)
             builder.Services.AddApplication();
 
             builder.Services.AddControllers();
 
-            // 4) Swagger / OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

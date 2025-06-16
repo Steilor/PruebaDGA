@@ -4,8 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClnArq.Infrastructure.Persistence;
 
-internal class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options) : DbContext(options), IStoreService
+public class ClnArqDbContext : DbContext, IStoreService
 {
+    public ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
+       : base(options)
+    {
+    }
 
 
     public DbSet<Producto> Productos { get; set; }
@@ -94,9 +98,37 @@ internal class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options) : DbCo
                 .WithMany(p => p.DetallesVenta)
                 .HasForeignKey(d => d.ProductoId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
         });
 
-       
+        // Configuración para Usuario
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.Property(u => u.NombreUsuario)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(u => u.ContrasenaHash)
+                .IsRequired()
+                .HasMaxLength(255); 
+
+            entity.Property(u => u.Rol)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            entity.HasIndex(u => u.NombreUsuario)
+                .IsUnique();
+
+            entity.HasIndex(u => u.Email)
+                .IsUnique();
+        });
+
+
 
     }
 

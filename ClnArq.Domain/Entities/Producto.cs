@@ -8,5 +8,5 @@ public class Producto
     public decimal Precio { get; set; }
     public int Stock { get; set; }
 
-    public ICollection<ItemComprado> ItemsComprados { get; set; } = new List<ItemComprado>();
+    public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 }
