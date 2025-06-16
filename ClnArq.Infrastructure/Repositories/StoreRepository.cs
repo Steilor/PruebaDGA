@@ -19,7 +19,7 @@ public class StoreRepository : IStoreRepository
         return await _context.Productos.ToListAsync();
     }
 
-    public async Task<Producto?> GetByIdAsync(int id)
+    public async Task<Producto?> GetByIdAsync(Guid id)
     {
         return await _context.Productos.FindAsync(id);
     }
@@ -39,9 +39,9 @@ public class StoreRepository : IStoreRepository
         _context.Productos.Remove(producto);
     }
 
-    public async Task<bool> ExistsAsync(int id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        return await _context.Productos.AnyAsync(p => p.Id = id);
+        return await _context.Productos.AnyAsync(p => p.Id == id);
     }
 
     public async Task SaveChangesAsync()

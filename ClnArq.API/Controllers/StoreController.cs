@@ -20,7 +20,7 @@ namespace ClnArq.API.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Producto>> GetById(int id)
+        public async Task<ActionResult<Producto>> GetById(Guid id)
         {
             var producto = await _storeService.GetProductoByIdAsync(id);
 
@@ -40,7 +40,7 @@ namespace ClnArq.API.Controllers
 
     
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Producto producto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] Producto producto)
         {
             if (id != producto.Id)
                 return BadRequest("ID mismatch");
@@ -55,7 +55,7 @@ namespace ClnArq.API.Controllers
 
       
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var deleted = await _storeService.DeleteProductoAsync(id);
 
