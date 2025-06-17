@@ -62,7 +62,7 @@ public static class WebApplicationBuilderExtensions
                     .AllowAnyMethod()
                     .AllowAnyHeader());
         });
-
+        builder.Services.AddEndpointsApiExplorer();
 
         // JWT
         builder.Services.AddAuthentication(options =>
@@ -99,6 +99,6 @@ public static class WebApplicationBuilderExtensions
             };
         });
 
-        builder.Services.AddEndpointsApiExplorer();
+     
     }
 }

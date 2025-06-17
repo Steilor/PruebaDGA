@@ -1,12 +1,7 @@
-using ClnArq.Infrastructure.Extensions;
-using ClnArq.Application.Extensions;
-using ClnArq.Infrastructure.Persistence;
-using ClnArq.Infrastructure.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.OpenApi.Models;
 using ClnArq.API.Extensions;
+using ClnArq.Application.Extensions;
+using ClnArq.Infrastructure.Extensions;
+using ClnArq.Infrastructure.Identity;
 namespace ClnArq.API
 {
     public class Program
