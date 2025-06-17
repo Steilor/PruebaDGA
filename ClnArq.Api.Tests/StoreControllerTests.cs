@@ -8,13 +8,13 @@ namespace ClnArq.Tests.API.Controllers
 {
     public class StoreControllerTests
     {
-        private readonly Mock<IStoreService> _mockStoreService;
-        private readonly StoreController _controller;
+        private readonly Mock<IProductService> _mockStoreService;
+        private readonly ProductController _controller;
 
         public StoreControllerTests()
         {
-            _mockStoreService = new Mock<IStoreService>();
-            _controller = new StoreController(_mockStoreService.Object);
+            _mockStoreService = new Mock<IProductService>();
+            _controller = new ProductController(_mockStoreService.Object);
         }
 
         [Fact]

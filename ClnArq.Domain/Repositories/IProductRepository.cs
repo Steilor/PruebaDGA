@@ -2,7 +2,7 @@
 
 namespace ClnArq.Domain.Repositories;
 
-public interface IStoreRepository
+public interface IProductRepository
 {
     Task<IEnumerable<Producto>> GetAllAsync();
     Task<Producto?> GetByIdAsync(Guid id);

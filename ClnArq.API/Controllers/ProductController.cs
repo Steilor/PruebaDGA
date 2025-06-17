@@ -8,14 +8,14 @@ namespace ClnArq.API.Controllers
 {
     [ApiController]
     [Route("api/productos")]
-    public class StoreController(IStoreService _storeService) : ControllerBase
+    public class ProductController(IProductService _productService) : ControllerBase
     {
      
         [HttpGet]
         //[Authorize]
         public async Task<ActionResult<IEnumerable<ProductoDto>>> GetAll()
         {
-            var productos = await _storeService.GetAllProductosAsync();
+            var productos = await _productService.GetAllProductosAsync();
             return Ok(productos);
         }
 
@@ -23,7 +23,7 @@ namespace ClnArq.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Producto>> GetById(Guid id)
         {
-            var producto = await _storeService.GetProductoByIdAsync(id);
+            var producto = await _productService.GetProductoByIdAsync(id);
 
             if (producto == null)
                 return NotFound();
@@ -35,7 +35,7 @@ namespace ClnArq.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductoDto producto)
         {
-            await _storeService.CreateProductoAsync(producto);
+            await _productService.CreateProductoAsync(producto);
             return NoContent();
         }
 
@@ -46,7 +46,7 @@ namespace ClnArq.API.Controllers
             if (id != producto.Id)
                 return BadRequest("ID mismatch");
 
-            var updated = await _storeService.UpdateProductoAsync(producto);
+            var updated = await _productService.UpdateProductoAsync(producto);
 
             if (!updated)
                 return NotFound();
@@ -58,7 +58,7 @@ namespace ClnArq.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var deleted = await _storeService.DeleteProductoAsync(id);
+            var deleted = await _productService.DeleteProductoAsync(id);
 
             if (!deleted)
                 return NotFound();

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClnArq.Infrastructure.Repositories;
 
-public class StoreRepository(ClnArqDbContext _context) : IStoreRepository
+public class ProductRepository(ClnArqDbContext _context) : IProductRepository
 {
 
     public async Task<IEnumerable<Producto>> GetAllAsync()

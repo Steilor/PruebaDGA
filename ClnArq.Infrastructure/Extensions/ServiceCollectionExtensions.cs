@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddIdentityApiEndpoints<ApplicationUser>()
                .AddEntityFrameworkStores<ClnArqDbContext>();
 
-        services.AddScoped<IStoreRepository, StoreRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IVentasRepository, VentasRepository>();
         services.AddScoped<IClientesRepository, ClientesRepository>();
 
