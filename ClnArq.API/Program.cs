@@ -2,6 +2,11 @@ using ClnArq.Infrastructure.Extensions;
 using ClnArq.Application.Extensions;
 using ClnArq.Infrastructure.Persistence;
 using ClnArq.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
+using ClnArq.API.Extensions;
 namespace ClnArq.API
 {
     public class Program
@@ -10,35 +15,18 @@ namespace ClnArq.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            builder.Services.AddSwaggerGen(c =>
-            {
-
-            }
-            );
-
-            // CORS
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowLocalhostVue",
-                    policy => policy
-                        .WithOrigins("http://localhost:5173")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
-
+            // Add services to the container.
+            builder.AddPresentation();
 
             builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            builder.Services.AddEndpointsApiExplorer();
- 
 
             var app = builder.Build();
 
             app.UseCors("AllowLocalhostVue");
 
-            // Configure the HTTP request pipeline.
+            // HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -47,10 +35,13 @@ namespace ClnArq.API
 
             app.UseHttpsRedirection();
 
-            app.MapGroup("api/identity").MapIdentityApi<ApplicationUser>();
-
+            //1-autenticación 2-autorización
+            app.UseAuthentication();
             app.UseAuthorization();
 
+
+            app.MapGroup("api/identity")
+                .MapIdentityApi<ApplicationUser>();
 
             app.MapControllers();
 

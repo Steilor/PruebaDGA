@@ -1,6 +1,7 @@
 ﻿using ClnArq.Application.Dtos;
 using ClnArq.Application.Services;
 using ClnArq.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClnArq.API.Controllers
@@ -13,6 +14,7 @@ namespace ClnArq.API.Controllers
 
      
         [HttpGet]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<ProductoDto>>> GetAll()
         {
             var productos = await _storeService.GetAllProductosAsync();
