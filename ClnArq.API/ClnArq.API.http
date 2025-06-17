@@ -1,7 +1,10 @@
 @ClnArq.API_HostAddress = https://localhost:7038
+@token = CfDJ8MWGnpKvu19Pl2aYV_QOD1P4X81-tpc_sBf9oo-ajekuGmvkf-IeeKYyMYureSxNnhrZGmxEoBPh36Hs5LCLK2TU5z5obubYBeWoHTvtyLrprt94uoP0_zGgA7XcGBTwOTNHgR7aboMlUq8kN7bKXKtESvU2lxxv5Y_PicKIOT1Y_i0uB9WhFLdIaracEijmtcEEUaHnRI3dudtXhUpXAUSi_dQ2SjHFPYySnIzMuYRYipExDP6jGBcebMjLW37pbPbFTVW4qbYkZTiFQQo8yDbW7eufhBPPgQubZNO7dK7HarjdPs7olkRSE1PF_gVaZpiw3_XQulth3x0wSCAN-YottA00JABFcbRATkU6gyHLdVr6yP1hqOFhGuHzojmpr_brVFmXkfdM7ug06KTkNWaZ6SO5CibB8qMu6eL4xP4_SFj-7UvYvHbJq8cqKhaN13a0Duv9AxoUVuqNja-g-I9odtGcWHXFkiB8vyqm6sOxbm2CnliAtVsrmKIqqa9lQsR2dhdrkrhP-E23Gz2BII-vTjOJNPHMTbrolAOt2mYQN6786bOSXFbLbBVgRpYGwzZcxOtPn4fc8WVfBuE2Bu82GQrP9YLqfk9NYgnLljtH0SQwMlMwxQUq2KL6ygPEplcC6wK3d4aXCaZYj3fwXsGYsnK6ivMlt9VpMsG1dpeI-SIX06xP37cmE-pQLN2ENw
 
-GET {{ClnArq.API_HostAddress}}/weatherforecast/
+
+GET {{ClnArq.API_HostAddress}}/api/store
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
@@ -15,4 +18,8 @@ Content-Type: application/json
   "stock": 10
 }
 
+###
+
+GET {{ClnArq.API_HostAddress}}/api/store
+Authorization: Bearer {{token}}
 ###
