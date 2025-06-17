@@ -1,4 +1,4 @@
-﻿using ClnArq.Application.Services;
+﻿using ClnArq.Application.Services.Product;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ClnArq.Application.Extensions;

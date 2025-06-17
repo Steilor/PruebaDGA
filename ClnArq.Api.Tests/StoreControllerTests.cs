@@ -1,6 +1,6 @@
 ﻿using ClnArq.API.Controllers;
 using ClnArq.Application.Dtos;
-using ClnArq.Application.Services;
+using ClnArq.Application.Services.Product;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

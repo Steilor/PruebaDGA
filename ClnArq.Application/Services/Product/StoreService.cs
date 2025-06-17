@@ -3,7 +3,7 @@ using ClnArq.Application.Dtos;
 using ClnArq.Domain.Entities;
 using ClnArq.Domain.Repositories;
 
-namespace ClnArq.Application.Services;
+namespace ClnArq.Application.Services.Product;
 
 internal class StoreService(IStoreRepository storeRepository,
     IMapper mapper) : IStoreService

@@ -1,7 +1,5 @@
-﻿using ClnArq.Application.Services;
-using ClnArq.Domain.Entities;
+﻿using ClnArq.Domain.Entities;
 using ClnArq.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,88 +18,64 @@ public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
     {
         base.OnModelCreating(modelBuilder);
 
-       
-        modelBuilder.Entity<Producto>(entity =>
+
+        
+        modelBuilder.Entity<Venta>(eb =>
         {
-            entity.Property(p => p.Nombre)
-                .IsRequired()
-                .HasMaxLength(100);
+            eb.HasKey(v => v.Id);
+            eb.Property(v => v.Total)
+              .HasColumnType("decimal(18,2)")
+              .IsRequired();
+            eb.Property(v => v.Fecha)
+              .HasDefaultValueSql("getutcdate()");
+            eb.HasOne<Cliente>()
+              .WithMany(c => c.Ventas)
+              .HasForeignKey(v => v.ClienteId)
+              .OnDelete(DeleteBehavior.Restrict);
+            eb.HasMany(v => v.DetallesVenta)
+              .WithOne(dv => dv.Venta)
+              .HasForeignKey(dv => dv.VentaId)
+              .OnDelete(DeleteBehavior.Cascade);
+        });
 
-            entity.Property(p => p.Descripcion)
-                .HasMaxLength(500);
-
-            entity.Property(p => p.Precio)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-            entity.Property(p => p.Stock)
-                .IsRequired();
-
-            entity.HasIndex(p => p.Nombre)
-                .IsUnique();
+       
+        modelBuilder.Entity<Producto>(eb =>
+        {
+            eb.HasKey(p => p.Id);
+            eb.Property(p => p.Nombre)
+              .IsRequired()
+              .HasMaxLength(200);
+            eb.Property(p => p.Precio)
+              .HasColumnType("decimal(18,2)")
+              .IsRequired();
+            eb.HasMany(p => p.DetallesVenta)
+              .WithOne(dv => dv.Producto)
+              .HasForeignKey(dv => dv.ProductoId)
+              .OnDelete(DeleteBehavior.Restrict);
         });
 
       
-        modelBuilder.Entity<Cliente>(entity =>
+        modelBuilder.Entity<DetalleVenta>(eb =>
         {
-            entity.Property(c => c.Nombre)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(c => c.Email)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(c => c.Telefono)
-                .HasMaxLength(20);
-
-            entity.HasIndex(c => c.Email)
-                .IsUnique();
+            eb.HasKey(dv => dv.Id);
+            eb.Property(dv => dv.PrecioUnitario)
+              .HasColumnType("decimal(18,2)")
+              .IsRequired();
+            eb.Property(dv => dv.Cantidad)
+              .IsRequired();
         });
 
-        modelBuilder.Entity<Venta>(entity =>
+     
+        modelBuilder.Entity<Cliente>(eb =>
         {
-            entity.Property(v => v.Fecha)
-                .IsRequired();
-
-            entity.Property(v => v.Total)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-           
-            entity.HasOne(v => v.Cliente)
-                .WithMany(c => c.Ventas)
-                .HasForeignKey(v => v.ClienteId)
-                .OnDelete(DeleteBehavior.Restrict);
+            eb.HasKey(c => c.Id);
+            eb.Property(c => c.Nombre)
+              .IsRequired()
+              .HasMaxLength(150);
+            eb.Property(c => c.Email)
+              .IsRequired()
+              .HasMaxLength(200);
         });
-
-       
-        modelBuilder.Entity<DetalleVenta>(entity =>
-        {
-            entity.Property(d => d.Cantidad)
-                .IsRequired();
-
-            entity.Property(d => d.PrecioUnitario)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-          
-            entity.HasOne(d => d.Venta)
-                .WithMany(v => v.Detalles)
-                .HasForeignKey(d => d.VentaId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-          
-            entity.HasOne(d => d.Producto)
-                .WithMany(p => p.DetallesVenta)
-                .HasForeignKey(d => d.ProductoId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-        });
-
-    
-
 
 
     }
