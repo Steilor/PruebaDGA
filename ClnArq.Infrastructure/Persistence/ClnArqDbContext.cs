@@ -75,6 +75,13 @@ public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
             eb.Property(c => c.Email)
               .IsRequired()
               .HasMaxLength(200);
+            eb.Property(c => c.Telefono)
+               .HasMaxLength(50);
+            eb.Property(c => c.Direccion)
+              .IsRequired()
+              .HasMaxLength(300);
+            eb.Property(c => c.Creado)
+              .HasDefaultValueSql("getutcdate()");
         });
 
 

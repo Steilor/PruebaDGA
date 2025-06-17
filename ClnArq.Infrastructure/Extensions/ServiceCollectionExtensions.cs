@@ -22,17 +22,8 @@ public static class ServiceCollectionExtensions
         services.AddIdentityApiEndpoints<ApplicationUser>()
                .AddEntityFrameworkStores<ClnArqDbContext>();
 
-
-        /*services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
-        {
-            options.User.RequireUniqueEmail = true;
-            options.Password.RequiredLength = 6;
-            options.Password.RequireNonAlphanumeric = false;
-        })
-            .AddEntityFrameworkStores<ClnArqDbContext>()
-            .AddDefaultTokenProviders();*/
-
         services.AddScoped<IStoreRepository, StoreRepository>();
+        services.AddScoped<IVentasRepository, VentasRepository>();
 
     }
 }

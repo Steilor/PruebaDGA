@@ -1,4 +1,5 @@
 ﻿using ClnArq.Application.Services.Product;
+using ClnArq.Application.Services.Ventas;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ClnArq.Application.Extensions;
@@ -11,6 +12,7 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
 
         services.AddScoped<IStoreService, StoreService>();
+        services.AddScoped<IVentasService, VentasService>();
 
         return services;
     }

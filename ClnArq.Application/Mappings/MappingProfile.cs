@@ -17,14 +17,19 @@ public class MappingProfile : Profile
             .ReverseMap();
 
         CreateMap<Venta, VentaDto>()
-            .ForMember(dest => dest.Id,
-                opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.ClientId,
-                opt => opt.MapFrom(src => src.ClienteId))
+            .ForMember(dest => dest.ClienteId,
+                       opt => opt.MapFrom(src => src.ClienteId))
             .ForMember(dest => dest.Date,
-                opt => opt.MapFrom(src => src.Fecha))
+                       opt => opt.MapFrom(src => src.Fecha))
             .ForMember(dest => dest.TotalAmount,
-                opt => opt.MapFrom(src => src.Total))
-            .ReverseMap();
+                       opt => opt.MapFrom(src => src.Total))
+            .ReverseMap()
+            .ForMember(dest => dest.ClienteId,
+                       opt => opt.MapFrom(src => src.ClienteId))
+            .ForMember(dest => dest.Fecha,
+                       opt => opt.MapFrom(src => src.Date))
+            .ForMember(dest => dest.Total,
+                       opt => opt.MapFrom(src => src.TotalAmount));
+
     }
 }

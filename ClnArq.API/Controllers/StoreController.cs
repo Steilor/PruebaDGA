@@ -1,5 +1,5 @@
 ﻿using ClnArq.Application.Dtos;
-using ClnArq.Application.Services;
+using ClnArq.Application.Services.Product;
 using ClnArq.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +8,8 @@ namespace ClnArq.API.Controllers
 {
     [ApiController]
     [Route("api/productos")]
-    public class StoreController(IStoreService storeService) : ControllerBase
+    public class StoreController(IStoreService _storeService) : ControllerBase
     {
-        private readonly IStoreService _storeService = storeService;
-
      
         [HttpGet]
         //[Authorize]
@@ -37,7 +35,7 @@ namespace ClnArq.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductoDto producto)
         {
-            var created = await _storeService.CreateProductoAsync(producto);
+            await _storeService.CreateProductoAsync(producto);
             return NoContent();
         }
 
