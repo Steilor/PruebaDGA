@@ -1,4 +1,5 @@
-﻿using ClnArq.Application.Services.Product;
+﻿using ClnArq.Application.Services.Clientes;
+using ClnArq.Application.Services.Product;
 using ClnArq.Application.Services.Ventas;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IStoreService, StoreService>();
         services.AddScoped<IVentasService, VentasService>();
+        services.AddScoped<IClientesService, ClientesService>();
 
         return services;
     }

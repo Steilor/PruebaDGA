@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IStoreRepository, StoreRepository>();
         services.AddScoped<IVentasRepository, VentasRepository>();
+        services.AddScoped<IClientesRepository, ClientesRepository>();
 
     }
 }
