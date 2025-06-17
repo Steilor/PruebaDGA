@@ -1,6 +1,7 @@
 using ClnArq.Infrastructure.Extensions;
 using ClnArq.Application.Extensions;
 using ClnArq.Infrastructure.Persistence;
+using ClnArq.Infrastructure.Identity;
 namespace ClnArq.API
 {
     public class Program
@@ -8,6 +9,13 @@ namespace ClnArq.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddControllers();
+            builder.Services.AddSwaggerGen(c =>
+            {
+
+            }
+            );
 
             // CORS
             builder.Services.AddCors(options =>
@@ -19,14 +27,12 @@ namespace ClnArq.API
                         .AllowAnyHeader());
             });
 
-            builder.Services.AddInfrastructure(builder.Configuration);
 
             builder.Services.AddApplication();
-
-            builder.Services.AddControllers();
+            builder.Services.AddInfrastructure(builder.Configuration);
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+ 
 
             var app = builder.Build();
 
@@ -40,6 +46,8 @@ namespace ClnArq.API
             }
 
             app.UseHttpsRedirection();
+
+            app.MapGroup("api/identity").MapIdentityApi<ApplicationUser>();
 
             app.UseAuthorization();
 

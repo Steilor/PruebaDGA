@@ -1,31 +1,21 @@
 ﻿using ClnArq.Application.Services;
 using ClnArq.Domain.Entities;
+using ClnArq.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClnArq.Infrastructure.Persistence;
 
-public class ClnArqDbContext : DbContext
+public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options) 
+    : IdentityDbContext<ApplicationUser>(options)
 {
-    public ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
-       : base(options)
-    {
-    }
 
     internal DbSet<Producto> Productos { get; set; }
     internal DbSet<Cliente> Clientes { get; set; }
     internal DbSet<Venta> Ventas { get; set; }
     internal DbSet<DetalleVenta> DetallesVenta { get; set; }
-    internal DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(
-                "Server=MATEO\\SQLEXPRESS;Database=AduanasDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
-            );
-        }
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -110,31 +100,7 @@ public class ClnArqDbContext : DbContext
 
         });
 
-        // Configuración para Usuario
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.Property(u => u.NombreUsuario)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            entity.Property(u => u.Email)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(u => u.ContrasenaHash)
-                .IsRequired()
-                .HasMaxLength(255); 
-
-            entity.Property(u => u.Rol)
-                .IsRequired()
-                .HasMaxLength(20);
-
-            entity.HasIndex(u => u.NombreUsuario)
-                .IsUnique();
-
-            entity.HasIndex(u => u.Email)
-                .IsUnique();
-        });
+    
 
 
 
