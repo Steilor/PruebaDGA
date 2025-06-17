@@ -61,10 +61,13 @@ La API quedará disponible en https://localhost:5001 (por defecto).
 ### 3.Swagger
 Abrir en el navegador https://localhost:5001/swagger para explorar y probar los endpoints
 
-![image](https://github.com/user-attachments/assets/5cbce928-f262-4b79-a25a-e995c11357ee)
+![image](https://github.com/user-attachments/assets/e6d10b90-728d-40d1-840a-d398469122ab)
 
+![image](https://github.com/user-attachments/assets/119a6f35-8dd6-4b9e-bf4a-6f1744fc30b4)
 
-![image](https://github.com/user-attachments/assets/25909713-4fc1-4351-a306-873b82c586d4)
+![image](https://github.com/user-attachments/assets/72d32000-ffd3-4a0b-8940-8279fdf3ac7f)
+
+![image](https://github.com/user-attachments/assets/f245987d-db28-45f1-8dda-be05dce0db86)
 
 
 ### 4.Frontend (Vue.js)
