@@ -1,10 +1,8 @@
 ﻿using ClnArq.API.Controllers;
 using ClnArq.Application.Dtos;
 using ClnArq.Application.Services;
-using ClnArq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Xunit;
 
 namespace ClnArq.Tests.API.Controllers
 {
