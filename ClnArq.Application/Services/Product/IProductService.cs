@@ -3,7 +3,7 @@ using ClnArq.Domain.Entities;
 
 namespace ClnArq.Application.Services.Product;
 
-public interface IStoreService
+public interface IProductService
 {
     Task<IEnumerable<ProductoDto>> GetAllProductosAsync();
     Task<ProductoDto?> GetProductoByIdAsync(Guid id);

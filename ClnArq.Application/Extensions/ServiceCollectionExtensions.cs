@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
      
         services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
 
-        services.AddScoped<IStoreService, StoreService>();
+        services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IVentasService, VentasService>();
         services.AddScoped<IClientesService, ClientesService>();
 

@@ -6,8 +6,8 @@ using ClnArq.Domain.Repositories;
 
 namespace ClnArq.Application.Services.Product;
 
-internal class StoreService(IStoreRepository _storeRepository,
-    IMapper mapper) : IStoreService
+internal class ProductService(IProductRepository _storeRepository,
+    IMapper mapper) : IProductService
 {
 
     public async Task<IEnumerable<ProductoDto>> GetAllProductosAsync()
