@@ -5,8 +5,10 @@
 |--------------|----------------------------------------|
 | **Backend**  | .NET 8 (C#), ASP.NET Core Web API      |
 |              | Entity Framework Core                  |
+|              | Identity                               |
 |              | SQL Server                             |
 |              | AutoMapper                             |
+|              | XuNit                                  |
 |              | Microsoft.Extensions.DependencyInjection |
 | **Frontend** | Vue 3 (Composition API)                |
 |              | Vite + Tailwind CSS                    |
@@ -17,10 +19,20 @@
 
 
 
-![image](https://github.com/user-attachments/assets/2a370803-35d4-43ed-a89f-6b017aca5df0)
 
 
-![image](https://github.com/user-attachments/assets/3e947319-0e30-4558-82f8-2a2463621c45)
+![image](https://github.com/user-attachments/assets/676cd9cc-783b-4f41-9f6f-5d4b6006969f)
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/f337137e-d0b1-4ae6-95fe-5d63eb140e8c)
+
+
+
+![image](https://github.com/user-attachments/assets/47af733d-c1ea-4fac-b5dc-cd63b2dc9907)
+
 
 
 ## Instrucciones
@@ -47,8 +59,13 @@ dotnet run
 La API quedará disponible en https://localhost:5001 (por defecto).
 
 ### 3.Swagger
-Abre en el navegador https://localhost:5001/swagger para explorar y probar los endpoints
-![image](https://github.com/user-attachments/assets/e6bec304-c5e3-4659-a36a-2645b1e15b4c)
+Abrir en el navegador https://localhost:5001/swagger para explorar y probar los endpoints
+
+![image](https://github.com/user-attachments/assets/5cbce928-f262-4b79-a25a-e995c11357ee)
+
+
+![image](https://github.com/user-attachments/assets/25909713-4fc1-4351-a306-873b82c586d4)
+
 
 ### 4.Frontend (Vue.js)
 cd ../frontend
