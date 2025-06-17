@@ -1,7 +1,7 @@
 ﻿using ClnArq.Application.Dtos;
 using ClnArq.Domain.Entities;
 
-namespace ClnArq.Application.Services;
+namespace ClnArq.Application.Services.Product;
 
 public interface IStoreService
 {

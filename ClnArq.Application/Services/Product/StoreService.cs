@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using ClnArq.Application.Dtos;
 using ClnArq.Domain.Entities;
+using ClnArq.Domain.Exceptions;
 using ClnArq.Domain.Repositories;
 
-namespace ClnArq.Application.Services;
+namespace ClnArq.Application.Services.Product;
 
-internal class StoreService(IStoreRepository storeRepository,
+internal class StoreService(IStoreRepository _storeRepository,
     IMapper mapper) : IStoreService
 {
-    private readonly IStoreRepository _storeRepository = storeRepository;
 
     public async Task<IEnumerable<ProductoDto>> GetAllProductosAsync()
     {
@@ -51,7 +51,7 @@ internal class StoreService(IStoreRepository storeRepository,
     {
         var producto = await _storeRepository.GetByIdAsync(id);
         if (producto == null)
-            return false;
+            throw new NotFoundException();
 
         _storeRepository.Delete(producto);
         await _storeRepository.SaveChangesAsync();

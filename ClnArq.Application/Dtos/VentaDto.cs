@@ -2,8 +2,9 @@
 
 public class VentaDto
 {
-    public Guid Id { get; set; }
-    public Guid ClientId { get; set; }
+    public int Id { get; set; }
+    public Guid ClienteId { get; set; }
+    public Guid ProductoId { get; set; }
     public DateTime Date { get; set; }
     public decimal TotalAmount { get; set; }
 
