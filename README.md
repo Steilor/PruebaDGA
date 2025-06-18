@@ -58,6 +58,8 @@ dotnet run
 
 La API quedará disponible en https://localhost:5001 (por defecto).
 
+Para aplicar los test: Simplemente "dotnet test" en la raiz del proyecto
+
 ### 3.Swagger
 Abrir en el navegador https://localhost:5001/swagger para explorar y probar los endpoints
 
