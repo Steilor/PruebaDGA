@@ -24,12 +24,18 @@ public class VentasRepository(ClnArqDbContext _context) : IVentasRepository
 
     public async Task<IEnumerable<Venta>> GetAllAsync()
     {
-        return await _context.Ventas.ToListAsync();
+        return await _context.Ventas
+           .Include(v => v.Cliente)
+           .Include(v => v.Producto)
+           .ToListAsync();
     }
 
     public async Task<Venta?> GetByIdAsync(int id)
     {
-        return await _context.Ventas.FindAsync(id);
+        return await _context.Ventas
+            .Include(v => v.Cliente)
+            .Include(v => v.Producto)
+            .FirstOrDefaultAsync(v => v.Id == id);
     }
 
     public async Task SaveChangesAsync()

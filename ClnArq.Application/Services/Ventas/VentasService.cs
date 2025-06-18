@@ -36,11 +36,12 @@ internal class VentasService(IVentasRepository ventasRepository,
 
     public async Task<IEnumerable<VentaDto>> GetAllVentasAsync()
     {
-      var ventas = await ventasRepository.GetAllAsync();
-      if(ventas == null)
+        var ventas = await ventasRepository.GetAllAsync();
+
+        if (ventas == null || !ventas.Any())
             throw new NotFoundException();
 
-      var ventasDto = mapper.Map<IEnumerable<VentaDto>>(ventas);
+        var ventasDto = mapper.Map<IEnumerable<VentaDto>>(ventas);
 
         return ventasDto;
     }
@@ -51,6 +52,7 @@ internal class VentasService(IVentasRepository ventasRepository,
 
         if (venta == null)
             throw new NotFoundException();
+
         var ventaDto = mapper.Map<VentaDto>(venta);
 
         return ventaDto;
@@ -58,19 +60,24 @@ internal class VentasService(IVentasRepository ventasRepository,
 
     public async Task<bool> UpdateVentaAsync(VentaDto ventaDto)
     {
-        
+
         var ventaExistente = await ventasRepository.GetByIdAsync(ventaDto.Id);
         if (ventaExistente == null)
             throw new NotFoundException();
 
-   
+        ventaExistente.Cantidad = ventaDto.Cantidad;
+        ventaExistente.Producto.Precio = ventaDto.PrecioUnico;
         ventaExistente.Fecha = ventaDto.Date;
         ventaExistente.Total = ventaDto.TotalAmount;
-        //ventaExistente.Cantidad = ventaDto.Cantidad;
-        //ventaExistente.ClienteId = ventaDto.ClienteId;
-        //ventaExistente.ProductoId = ventaDto.ProductoId;
+        ventaExistente.Producto.Nombre = ventaDto.NombreProducto;
+        ventaExistente.Cliente.Nombre = ventaDto.NombreCliente;
+        ventaExistente.ClienteId = ventaDto.ClienteId;
+        ventaExistente.ProductoId = ventaDto.ProductoId;
+
+        ventasRepository.Update(ventaExistente);
 
         await ventasRepository.SaveChangesAsync();
+
         return true;
     }
 }

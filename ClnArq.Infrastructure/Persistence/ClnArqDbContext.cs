@@ -19,26 +19,35 @@ public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
         base.OnModelCreating(modelBuilder);
 
 
-        
+
         modelBuilder.Entity<Venta>(eb =>
         {
             eb.HasKey(v => v.Id);
+
             eb.Property(v => v.Total)
               .HasColumnType("decimal(18,2)")
               .IsRequired();
+
             eb.Property(v => v.Fecha)
               .HasDefaultValueSql("getutcdate()");
-            eb.HasOne<Cliente>()
+
+            eb.HasOne(v => v.Cliente)
               .WithMany(c => c.Ventas)
               .HasForeignKey(v => v.ClienteId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            eb.HasOne(v => v.Producto)
+              .WithMany()
+              .HasForeignKey(v => v.ProductoId)
+              .OnDelete(DeleteBehavior.Restrict); 
+
             eb.HasMany(v => v.DetallesVenta)
               .WithOne(dv => dv.Venta)
               .HasForeignKey(dv => dv.VentaId)
               .OnDelete(DeleteBehavior.Cascade);
         });
 
-       
+
         modelBuilder.Entity<Producto>(eb =>
         {
             eb.HasKey(p => p.Id);
