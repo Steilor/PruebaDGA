@@ -3,18 +3,12 @@ import Dashboard from '../views/Dashboard.vue';
 import Products from '../views/Products.vue';
 import Customers from '../views/Customers.vue';
 import Sales from '../views/Sales.vue';
-import Home from '../components/HomePage/Home.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Dashboard',
     component: Dashboard
-  },
-   {
-    path: '/home',
-    name: 'Home',
-    component: Home
   },
   {
     path: '/products',

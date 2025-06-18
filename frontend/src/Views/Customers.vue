@@ -144,7 +144,7 @@ const loadCustomers = async () => {
   try {
     customers.value = await customersApi.getAll();
   } catch (error) {
-    console.error('Error loading customers:', error);
+    console.error('Error cargando los clientes:', error);
   } finally {
     loading.value = false;
   }
@@ -178,19 +178,19 @@ const saveCustomer = async () => {
     await loadCustomers();
     closeModal();
   } catch (error) {
-    console.error('Error saving customer:', error);
+    console.error('Error guardando los clientes:', error);
   } finally {
     saving.value = false;
   }
 };
 
 const deleteCustomer = async (id: string) => {
-  if (confirm('Are you sure you want to delete this customer?')) {
+  if (confirm('Seguro de eliminar a este cliente?')) {
     try {
       await customersApi.delete(id);
       await loadCustomers();
     } catch (error) {
-      console.error('Error deleting customer:', error);
+      console.error('Error eliminando cliente:', error);
     }
   }
 };

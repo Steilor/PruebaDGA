@@ -66,7 +66,7 @@
       </div>
       
       <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Top Selling Products</h2>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Productos mas vendidos</h2>
         <div class="space-y-4">
           <div
             v-for="(product, index) in topSellingProducts"
@@ -79,7 +79,7 @@
               </div>
               <div>
                 <p class="font-medium text-gray-900">{{ product.productName }}</p>
-                <p class="text-sm text-gray-600">{{ product.totalQuantity }} units sold</p>
+                <p class="text-sm text-gray-600">{{ product.totalQuantity }} unit vendidas</p>
               </div>
             </div>
             <div class="text-right">
@@ -162,7 +162,7 @@ onMounted(async () => {
     customers.value = await customersApi.getAll();
     sales.value = await salesApi.getAll();
   } catch (error) {
-    console.error('Error loading dashboard data:', error);
+    console.error('Error cargando los datos del dashboard:', error);
   }
 });
 </script>

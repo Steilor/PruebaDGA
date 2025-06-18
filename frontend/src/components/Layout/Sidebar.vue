@@ -24,8 +24,8 @@ import { LayoutDashboard, Package, Users, ShoppingCart } from 'lucide-vue-next';
 
 const menuItems = [
   { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { name: 'Products', path: '/products', icon: Package },
-  { name: 'Customers', path: '/customers', icon: Users },
-  { name: 'Sales', path: '/sales', icon: ShoppingCart }
+  { name: 'Productos', path: '/products', icon: Package },
+  { name: 'Clientes', path: '/customers', icon: Users },
+  { name: 'Ventas', path: '/sales', icon: ShoppingCart }
 ];
 </script>

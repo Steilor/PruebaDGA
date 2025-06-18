@@ -197,7 +197,7 @@ const loadData = async () => {
     products.value = productsData;
     customers.value = customersData;
   } catch (error) {
-    console.error('Error loading data:', error);
+    console.error('Error cargando datos:', error);
   } finally {
     loading.value = false;
   }
@@ -221,7 +221,7 @@ const saveSale = async () => {
   if (!selectedProduct.value) return;
   
   if (form.value.quantity > selectedProduct.value.stock) {
-    alert('Insufficient stock available');
+    alert('Insuficiente stock');
     return;
   }
   
@@ -231,7 +231,7 @@ const saveSale = async () => {
     await loadData();
     closeModal();
   } catch (error) {
-    console.error('Error saving sale:', error);
+    console.error('Error guardando ventas:', error);
   } finally {
     saving.value = false;
   }
