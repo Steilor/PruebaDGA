@@ -21,3 +21,5 @@ export function updateVenta(id, payload) {
 export function deleteVenta(id) {
   return api.delete(`/ventas/${id}`);
 }
+
+

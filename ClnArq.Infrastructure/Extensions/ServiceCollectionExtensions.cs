@@ -2,6 +2,7 @@
 using ClnArq.Infrastructure.Identity;
 using ClnArq.Infrastructure.Persistence;
 using ClnArq.Infrastructure.Repositories;
+using ClnArq.Infrastructure.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IVentasRepository, VentasRepository>();
         services.AddScoped<IClientesRepository, ClientesRepository>();
+        services.AddScoped<IClnArqSeeder, ClnArqSeeder>();
 
     }
 }

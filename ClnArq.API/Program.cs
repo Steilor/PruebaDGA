@@ -2,11 +2,12 @@ using ClnArq.API.Extensions;
 using ClnArq.Application.Extensions;
 using ClnArq.Infrastructure.Extensions;
 using ClnArq.Infrastructure.Identity;
+using ClnArq.Infrastructure.Seeders;
 namespace ClnArq.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,12 @@ namespace ClnArq.API
 
 
             var app = builder.Build();
+
+            //Agregar el Seeder
+            var scope = app.Services.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredService<IClnArqSeeder>();
+
+             await seeder.Seed();
 
             app.UseCors("AllowLocalhostVue");
 

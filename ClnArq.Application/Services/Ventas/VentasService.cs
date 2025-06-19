@@ -60,24 +60,25 @@ internal class VentasService(IVentasRepository ventasRepository,
 
     public async Task<bool> UpdateVentaAsync(VentaDto ventaDto)
     {
-
-        var ventaExistente = await ventasRepository.GetByIdAsync(ventaDto.Id);
-        if (ventaExistente == null)
+        var venta = await ventasRepository.GetByIdAsync(ventaDto.Id);
+        if (venta == null)
             throw new NotFoundException();
 
-        ventaExistente.Cantidad = ventaDto.Cantidad;
-        ventaExistente.Producto.Precio = ventaDto.PrecioUnico;
-        ventaExistente.Fecha = ventaDto.Date;
-        ventaExistente.Total = ventaDto.TotalAmount;
-        ventaExistente.Producto.Nombre = ventaDto.NombreProducto;
-        ventaExistente.Cliente.Nombre = ventaDto.NombreCliente;
-        ventaExistente.ClienteId = ventaDto.ClienteId;
-        ventaExistente.ProductoId = ventaDto.ProductoId;
 
-        ventasRepository.Update(ventaExistente);
+        venta.Cantidad = ventaDto.Cantidad;
+        venta.Fecha = ventaDto.Date;
+        venta.Total = ventaDto.TotalAmount;
+        venta.ClienteId = ventaDto.ClienteId;
+        venta.ProductoId = ventaDto.ProductoId;
 
+        venta.ClienteNombre =ventaDto.NombreCliente;
+        venta.ProductoNombre = ventaDto.NombreProducto;
+        venta.ProductoPrecioUnitario = ventaDto.PrecioUnico;
+
+        ventasRepository.Update(venta);
         await ventasRepository.SaveChangesAsync();
 
         return true;
     }
+
 }
