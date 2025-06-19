@@ -11,7 +11,12 @@ public class Venta
     public Cliente Cliente { get; set; }  
 
     public Guid ProductoId { get; set; }
-    public Producto Producto { get; set; } 
+    public Producto Producto { get; set; }
+
+ 
+    public string ClienteNombre { get; set; } = string.Empty;
+    public string ProductoNombre { get; set; } = string.Empty;
+    public decimal ProductoPrecioUnitario { get; set; }
 
     public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 }
