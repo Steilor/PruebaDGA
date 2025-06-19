@@ -1,4 +1,4 @@
-# 🏪 Sistema de Gestión de Productos y Ventas
+# Sistema de Gestión de Productos y Ventas
 
 <div align="center">
 
@@ -11,33 +11,25 @@
 
 </div>
 
----
-
-## 🚀 Descripción del Proyecto
+## Descripción del Proyecto
 
 Sistema completo de gestión empresarial que combina un **backend** en .NET 8 con un **frontend** en Vue 3. Diseñado para manejar productos, clientes y ventas de manera eficiente y escalable.
 
-### 🎯 Características Principales
+### Características Principales
 
-- ✅ **.Net Core** completa con .Net 8
-- ✅ **API REST** completa con autenticación JWT
-- ✅ **Base de datos** SQL Server con Entity Framework Core
-- ✅ **Autenticación y Autorización** completa con autenticación JWT
-- ✅ **Frontend reactivo** con Vue 3 Composition API
-- ✅ **Diseño responsive** con TailwindCSS
-- ✅ **Pruebas unitarias** integradas
-- ✅ **Documentación automática** con Swagger
-- ✅ **Seeder de datos** para pruebas rápidas
+- .Net Core completa con .Net 8
+- API REST completa con autenticación JWT
+- Base de datos SQL Server con Entity Framework Core
+- Autenticación y Autorización completa con autenticación JWT
+- Frontend reactivo con Vue 3 Composition API
+- Diseño responsive con TailwindCSS
+- Pruebas unitarias integradas
+- Documentación automática con Swagger
+- Seeder de datos para pruebas rápidas
 
----
+## Stack Tecnológico
 
-## 🛠️ Stack Tecnológico
-
-<table>
-<tr>
-<td width="50%">
-
-### 🔧 Backend
+### Backend
 - **Framework:** .NET 8 (C#)
 - **API:** ASP.NET Core Web API
 - **ORM:** Entity Framework Core
@@ -47,10 +39,7 @@ Sistema completo de gestión empresarial que combina un **backend** en .NET 8 co
 - **Testing:** xUnit
 - **DI:** Microsoft.Extensions.DependencyInjection
 
-</td>
-<td width="50%">
-
-### 🎨 Frontend
+### Frontend
 - **Framework:** Vue 3 (Composition API)
 - **Build Tool:** Vite
 - **Estilos:** TailwindCSS
@@ -59,43 +48,35 @@ Sistema completo de gestión empresarial que combina un **backend** en .NET 8 co
 - **Documentación:** Swagger/Swashbuckle
 - **Control de Versiones:** Git & GitHub
 
-</td>
-</tr>
-</table>
+## Capturas de Pantalla
 
----
-
-## 📸 Capturas de Pantalla
-
-### 🖥️ Vista General del Sistema
+### Vista General del Sistema
 ![image](https://github.com/user-attachments/assets/676cd9cc-783b-4f41-9f6f-5d4b6006969f)
 
-### 📊 Dashboard Principal
+### Dashboard Principal
 ![image](https://github.com/user-attachments/assets/f337137e-d0b1-4ae6-95fe-5d63eb140e8c)
 
-### 📋 Gestión de Datos
+### Gestión de Datos
 ![image](https://github.com/user-attachments/assets/47af733d-c1ea-4fac-b5dc-cd63b2dc9907)
 
----
+## Instalación y Configuración
 
-## 🚀 Instalación y Configuración
-
-### 📋 Prerrequisitos
+### Prerrequisitos
 - .NET 8 SDK
 - Node.js (v16 o superior)
 - SQL Server
 - Git
 
-### 1️⃣ Clonar el Repositorio
+### 1. Clonar el Repositorio
 
 ```bash
 git clone https://github.com/Steilor/PruebaDGA.git
 cd ClnArq
 ```
 
-### 2️⃣ Configuración del Backend
+### 2. Configuración del Backend
 
-#### 🔧 Configurar Base de Datos
+#### Configurar Base de Datos
 Edita el archivo `ClnArq.API/appsettings.json`:
 
 ```json
@@ -106,7 +87,7 @@ Edita el archivo `ClnArq.API/appsettings.json`:
 }
 ```
 
-#### 🗄️ Aplicar Migraciones
+#### Aplicar Migraciones
 
 ```bash
 cd ClnArq.API
@@ -114,37 +95,31 @@ dotnet ef database update
 dotnet run
 ```
 
-> 🌐 **La API estará disponible en:** `https://localhost:5001`
+> **Nota:** La API estará disponible en `https://localhost:5001`
 
-#### 🧪 Ejecutar Pruebas
+#### Ejecutar Pruebas
 
 ```bash
 dotnet test
 ```
 
----
+## Seeder de Datos Iniciales
 
-## 🌱 Seeder de Datos Iniciales
+El sistema incluye un seeder automático que detecta si las tablas están vacías y, en caso afirmativo, inserta aproximadamente 40 registros de ejemplo en:
 
-> 💡 **¡No necesitas ingresar datos manualmente!**
-
-El sistema incluye un **seeder automático** que detecta si las tablas están vacías y, en caso afirmativo, inserta aproximadamente **40 registros de ejemplo** en:
-
-- 👥 **Clientes**
-- 📦 **Productos** 
-- 💰 **Ventas**
-- 📋 **Detalles de Venta**
+- **Clientes**
+- **Productos** 
+- **Ventas**
+- **Detalles de Venta**
 
 Esto permite probar todos los endpoints desde el primer `dotnet run`.
 
----
+## Documentación API (Swagger)
 
-## 📚 Documentación API (Swagger)
-
-### 🔍 Explorar Endpoints
+### Explorar Endpoints
 Accede a la documentación interactiva en: **https://localhost:5001/swagger**
 
-#### 📸 Capturas de Swagger
+#### Capturas de Swagger
 
 **Panel Principal:**
 ![image](https://github.com/user-attachments/assets/e6d10b90-728d-40d1-840a-d398469122ab)
@@ -158,18 +133,16 @@ Accede a la documentación interactiva en: **https://localhost:5001/swagger**
 **Schema:**
 ![image](https://github.com/user-attachments/assets/f245987d-db28-45f1-8dda-be05dce0db86)
 
----
+### 3. Configuración del Frontend
 
-## 3️⃣ Configuración del Frontend
-
-### 📦 Instalación de Dependencias
+#### Instalación de Dependencias
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-### 🚀 Comandos Disponibles
+#### Comandos Disponibles
 
 ```bash
 # Desarrollo
@@ -179,32 +152,28 @@ npm run dev
 npm run build
 ```
 
----
+## Capturas del Frontend
 
-## 🖼️ Capturas del Frontend
-
-### 🏠 Página Principal
+### Página Principal
 ![image](https://github.com/user-attachments/assets/7c86096f-b36e-4978-b57d-b370874698b8)
 
-### 📊 Gestión de Productos
+### Gestión de Productos
 ![image](https://github.com/user-attachments/assets/f6ee95c7-cb6d-4304-86c3-905543365333)
 
-### 📋 Lista de Productos
+### Lista de Productos
 ![image](https://github.com/user-attachments/assets/37f2bf04-b92d-41f3-af1e-ce4d7cc24615)
 
-### 👥 Gestión de Clientes
+### Gestión de Clientes
 ![image](https://github.com/user-attachments/assets/a6b253cb-1836-40ed-b3cc-697e97c96247)
 
-### 💰 Registro de Ventas
+### Registro de Ventas
 ![image](https://github.com/user-attachments/assets/8fde64a7-2a09-45ef-ad1b-d262bb5a6cbc)
 
-### 📈  Gestión de Ventas
+### Gestión de Ventas
 ![image](https://github.com/user-attachments/assets/28ca823d-6cad-44d6-9a10-42d11d391032)
 
 ---
 
-
 Desarrollado por [Steilor](https://github.com/Steilor)
-
-
+```
 
