@@ -10,9 +10,3 @@ const api = axios.create({
 
 
 export default api;
-
-//export const getAllProductos = () => api.get('/');
-//export const getProductoById = id => api.get(`/${id}`);
-//export const createProducto = data => api.post('/', data);
-//export const updateProducto = (id, data) => api.put(`/${id}`, data);
-//export const deleteProducto = id => api.delete(`/${id}`);

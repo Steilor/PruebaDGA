@@ -14,10 +14,10 @@ export function createProducto(payload) {
   return api.post('/productos', payload);
 }
 
-export function updateVenta(id, payload) {
+export function updateProducto(id, payload) {
   return api.put(`/productos/${id}`, payload);
 }
 
-export function deleteVenta(id) {
+export function deleteProducto(id) {
   return api.delete(`/productos/${id}`);
 }

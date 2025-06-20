@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Panel principal</h1>
+    <h1 class="text-3xl font-extrabold tracking-tight font-sans text-gray-800 mb-2 mb-8">Panel principal</h1>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div class="bg-white p-6 rounded-lg shadow-md">
@@ -79,12 +79,12 @@
               </div>
               <div>
                 <p class="font-medium text-gray-900">{{ product.productName }}</p>
-                <p class="text-sm text-gray-600">{{ product.totalQuantity }} unit vendidas</p>
+                <p class="text-sm text-gray-600">{{ product.totalQuantity }} unidades vendidas</p>
               </div>
             </div>
             <div class="text-right">
                <p class="font-medium text-gray-700">${{ product.totalRevenue.toLocaleString() }}</p>
-              <p class="text-sm text-gray-600">Revenue</p>
+              <p class="text-sm text-gray-600">Ganancia</p>
             </div>
           </div>
           <div v-if="topSellingProducts.length === 0" class="text-center py-8 text-gray-500">
@@ -107,7 +107,9 @@ import {
   CurrencyDollarIcon
 } from '@heroicons/vue/24/outline';
 
-import { productsApi, customersApi, salesApi } from '../Services/api';
+ import * as productosService  from '../Services/Productos/productosService';
+ import * as clientesService   from '../Services/Clientes/clientesService';
+ import * as ventasService      from '../Services/Ventas/ventasService';
 import type { Product, Customer, Sale } from '../types';
 
 
@@ -158,9 +160,39 @@ const formatDate = (dateString: string) => {
 
 onMounted(async () => {
   try {
-    products.value = await productsApi.getAll();
-    customers.value = await customersApi.getAll();
-    sales.value = await salesApi.getAll();
+    // 1) Productos
+    const rawProducts = await productosService.getAllProductos();
+    products.value = rawProducts.map(p => ({
+      id:          p.id,
+      name:        p.nombre,
+      description: p.descripcion,
+      price:       p.precio,
+      stock:       p.stock
+    }));
+
+    // 2) Clientes
+    const rawClients = await clientesService.getAllClientes();
+    customers.value = rawClients.map(c => ({
+      id:        c.id,
+      name:      c.nombre,
+      email:     c.email,
+      phone:     c.telefono,
+      address:   c.direccion,
+      createdAt: c.creado
+    }));
+
+    // 3) Ventas
+    const rawSales = await ventasService.getAllVentas();
+    sales.value = rawSales.map(v => ({
+      id:            v.id,
+      date:          v.date,
+      customerName:  v.nombreCliente,
+      productName:   v.nombreProducto,
+      quantity:      v.cantidad,
+      unitPrice:     v.precioUnico,
+      totalAmount:   v.totalAmount,
+      productId:     v.productoId   // para topSellingProducts
+    }));
   } catch (error) {
     console.error('Error cargando los datos del dashboard:', error);
   }
