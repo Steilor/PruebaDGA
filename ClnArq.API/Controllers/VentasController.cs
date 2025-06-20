@@ -1,7 +1,5 @@
-﻿using ClnArq.Application.Dtos;
-using ClnArq.Application.Services.Product;
+﻿using ClnArq.Application.Dtos.Ventas;
 using ClnArq.Application.Services.Ventas;
-using ClnArq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClnArq.API.Controllers
@@ -12,7 +10,7 @@ namespace ClnArq.API.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VentaDto>>> GetAllVentas()
+        public async Task<ActionResult<IEnumerable<VentasDtoGetAll>>> GetAllVentas()
         {
             var ventas = await ventasService.GetAllVentasAsync();
             return Ok(ventas);
@@ -20,7 +18,7 @@ namespace ClnArq.API.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Venta>> GetById(int id)
+        public async Task<ActionResult<VentasDtoGetAll>> GetById(int id)
         {
             var venta = await ventasService.GetVentaByIdAsync(id);
             return Ok(venta);
@@ -28,7 +26,7 @@ namespace ClnArq.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] VentaDto venta)
+        public async Task<IActionResult> CreateVenta([FromBody] VentasDtoAdd venta)
         {
            await ventasService.CreateVentaAsync(venta);
             return NoContent();
@@ -36,7 +34,7 @@ namespace ClnArq.API.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] VentaDto venta) //Aqui quite el id de parametro probar la asignacion
+        public async Task<IActionResult> Update(int id, [FromBody] VentasDtoUpdate venta) //Aqui quite el id de parametro probar la asignacion
         {        
             venta.Id = id;
             var updated = await ventasService.UpdateVentaAsync(venta);
@@ -49,14 +47,14 @@ namespace ClnArq.API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult<VentasDtoRemove>> Delete(int id)
         {
-            var deleted = await ventasService.DeleteVentaAsync(id);
+            var result = await ventasService.DeleteVentaAsync(id);
 
-            if (!deleted)
+            if (!result.Eliminado)
                 return NotFound();
 
-            return NoContent();
+            return Ok(result);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using ClnArq.Application.Dtos;
+using ClnArq.Application.Dtos.Ventas;
 
 namespace ClnArq.Application.Services.Ventas;
 
 public interface IVentasService
 {
-    Task<IEnumerable<VentaDto>> GetAllVentasAsync();
-    Task<VentaDto?> GetVentaByIdAsync(int id);
-    Task<bool> CreateVentaAsync(VentaDto ventaDto);
-    Task<bool> UpdateVentaAsync(VentaDto ventaDto);
-    Task<bool> DeleteVentaAsync(int id);
+    Task<IEnumerable<VentasDtoGetAll>> GetAllVentasAsync();
+    Task<VentasDtoGetAll?> GetVentaByIdAsync(int id);
+    Task<bool> CreateVentaAsync(VentasDtoAdd ventasDtoAdd);
+    Task<bool> UpdateVentaAsync(VentasDtoUpdate ventasDtoUpdate);
+    Task<VentasDtoRemove> DeleteVentaAsync(int id);
 }
