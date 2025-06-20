@@ -5,7 +5,12 @@
       <h1 class="text-3xl font-bold text-gray-900">Ventas</h1>
       <button
         @click="openCreateModal"
-        class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center"
+        class="flex items-center justify-center
+         text-white bg-blue-700 hover:bg-blue-800
+         focus:outline-none focus:ring-4 focus:ring-blue-300
+         font-medium rounded-full text-sm px-5 py-2.5
+         text-center me-2 mb-2
+         dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         <Plus class="w-4 h-4 mr-2" />
         Agregar venta
@@ -76,14 +81,14 @@
     </div>
 
  
-    <BaseModal
-      :is-open="showModal"
-      title="Agregar nueva venta"
-      :loading="saving"
-      :on-close="closeModal"
-      :on-confirm="saveSale"
-    >
-      <form @submit.prevent="saveSale" class="space-y-4">
+      <BaseModal
+        :is-open="showModal"
+        title="Agregar nueva venta"
+        :loading="saving"
+        @close="closeModal"
+        @confirm="saveSale"
+      >
+      <form class="space-y-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
           <select
@@ -92,9 +97,9 @@
             class="w-full p-2 border rounded focus:ring-primary-500 focus:border-primary-500"
           >
             <option value="">Seleccione un cliente</option>
-            <option v-for="c in customers" :key="c.id" :value="c.id">
-              {{ c.name }}
-            </option>
+           <option v-for="c in customers" :key="c.id" :value="c.id">
+               {{ c.name }}
+           </option>
           </select>
         </div>
 
@@ -108,7 +113,7 @@
           >
             <option value="">Seleccione un producto</option>
             <option v-for="p in products" :key="p.id" :value="p.id">
-              {{ p.name }} — ${{ p.price}} (Stock: {{ p.stock }})
+              {{ p.name }} — ${{ p.price.toLocaleString() }} (Stock: {{ p.stock }})
             </option>
           </select>
         </div>
@@ -189,7 +194,7 @@ const todaySales = computed(() => {
 async function loadData() {
   loading.value = true;
   try {
-    // Trae datos crudos
+    
     const [sv, pr, cl] = await Promise.all([
       ventasService.getAllVentas(),
       productosService.getAllProductos(),
@@ -206,8 +211,17 @@ async function loadData() {
       totalAmount: v.totalAmount
     }));
 
-    products.value  = pr;
-    customers.value = cl;
+    customers.value = cl.map(c => ({
+      id: c.id,
+      name: c.nombre  
+    }));
+
+    products.value = pr.map(p => ({
+      id: p.id,
+      name: p.nombre,         
+      price: p.precio,         
+      stock: p.stock  
+    }));
   } catch (e) {
     console.error(e);
   } finally {

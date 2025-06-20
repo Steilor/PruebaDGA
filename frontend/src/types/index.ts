@@ -16,15 +16,14 @@ export interface Customer {
 }
 
 export interface Sale {
-  id: string;
-  customerId: string;
+  id:           string;
+  date:         string;
   customerName: string;
-  productId: string;
-  productName: string;
-  quantity: number;
-  unitPrice: number;
-  totalAmount: number;
-  date: string;
+  productName:  string;
+  quantity:     number;
+  unitPrice:    number;
+  totalAmount:  number;
+  productId:    string;
 }
 
 export interface SaleRequest {

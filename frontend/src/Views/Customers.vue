@@ -4,7 +4,12 @@
       <h1 class="text-3xl font-bold text-gray-900">Clientes</h1>
       <button
         @click="openCreateModal"
-        class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center"
+        class="flex items-center justify-center
+         text-white bg-blue-700 hover:bg-blue-800
+         focus:outline-none focus:ring-4 focus:ring-blue-300
+         font-medium rounded-full text-sm px-5 py-2.5
+         text-center me-2 mb-2
+         dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         <Plus class="w-4 h-4 mr-2" />
         Agregar clientes
@@ -65,7 +70,6 @@
       </div>
     </div>
     
-    <!-- Create/Edit Modal -->
     <BaseModal
       :is-open="showModal"
       :title="editingCustomer ? 'Edit Customer' : 'Create Customer'"
@@ -73,7 +77,7 @@
       @close="closeModal"
       @confirm="saveCustomer"
     >
-      <form @submit.prevent="saveCustomer" class="space-y-4">
+      <form class="space-y-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
           <input
@@ -121,7 +125,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Plus } from 'lucide-vue-next';
-import { customersApi } from '../Services/api';
+import * as clientesService from '../Services/Clientes/clientesService';
 import type { Customer } from '../types';
 import BaseModal from '../components/UI/BaseModal.vue';
 import LoadingSpinner from '../components/UI/LoadingSpinner.vue';
@@ -142,7 +146,15 @@ const form = ref({
 const loadCustomers = async () => {
   loading.value = true;
   try {
-    customers.value = await customersApi.getAll();
+    const raw = await clientesService.getAllClientes();
+    customers.value = raw.map(c => ({
+      id: c.id,
+      name: c.nombre,
+      email: c.email,
+      phone: c.telefono,
+      address: c.direccion,
+      createdAt: c.creado
+    }));
   } catch (error) {
     console.error('Error cargando los clientes:', error);
   } finally {
@@ -170,15 +182,21 @@ const closeModal = () => {
 const saveCustomer = async () => {
   saving.value = true;
   try {
+    const payload = {
+      nombre:  form.value.name,
+      email:   form.value.email,
+      telefono:form.value.phone,
+      direccion:form.value.address
+    };
     if (editingCustomer.value) {
-      await customersApi.update(editingCustomer.value.id, form.value);
+      await clientesService.updateCliente(editingCustomer.value.id, payload);
     } else {
-      await customersApi.create(form.value);
+      await clientesService.createCliente(payload);
     }
     await loadCustomers();
     closeModal();
   } catch (error) {
-    console.error('Error guardando los clientes:', error);
+    console.error('Error guardando el cliente:', error);
   } finally {
     saving.value = false;
   }
@@ -187,7 +205,7 @@ const saveCustomer = async () => {
 const deleteCustomer = async (id: string) => {
   if (confirm('Seguro de eliminar a este cliente?')) {
     try {
-      await customersApi.delete(id);
+      await clientesService.deleteCliente(id);
       await loadCustomers();
     } catch (error) {
       console.error('Error eliminando cliente:', error);

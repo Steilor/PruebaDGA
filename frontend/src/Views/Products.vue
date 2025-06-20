@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+   <div class="p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-gray-900">Productos</h1>
       <button
@@ -19,26 +19,48 @@
       <div
         v-for="product in products"
         :key="product.id"
-        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
       >
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ product.name }}</h3>
-        <p class="text-gray-600 mb-4">{{ product.description }}</p>
+        <div class="mb-4">
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ product.name }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">{{ product.description }}</p>
+        </div>
         
         <div class="flex justify-between items-center mb-4">
-          <span class="text-2xl font-bold text-primary-600">${{ product.price.toLocaleString() }}</span>
-          <span class="text-sm text-gray-500">Stock: {{ product.stock }}</span>
+          <div class="flex flex-col">
+            <span class="text-xs text-gray-500 uppercase tracking-wide font-medium mb-1"></span>
+            <div class="flex items-baseline">
+              <span class="text-2xl font-bold text-gray-600">RD$ {{ product.price.toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</span>
+              
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-gray-500 uppercase tracking-wide font-medium block mb-1">Stock</span>
+            <div class="flex items-center">
+              <div class="w-2 h-2 rounded-full mr-2" :class="
+                product.stock > 10 ? 'bg-green-400' :
+                product.stock > 0  ? 'bg-yellow-400' : 'bg-red-400'
+              "></div>
+              <span class="text-sm font-semibold" :class="
+                product.stock > 10 ? 'text-green-600' :
+                product.stock > 0  ? 'text-yellow-600' : 'text-red-600'
+              ">
+                {{ product.stock }} Unidades
+              </span>
+            </div>
+          </div>
         </div>
         
         <div class="flex space-x-2">
           <button
             @click="editProduct(product)"
-            class="flex-1 bg-secondary-600 text-white py-2 px-3 rounded-md hover:bg-secondary-700 transition-colors text-sm"
+            class="flex-1 bg-slate-500 text-white py-2 px-3 rounded-md hover:bg-slate-700 transition-colors text-sm font-medium"
           >
             Editar
           </button>
           <button
             @click="deleteProduct(product.id)"
-            class="flex-1 bg-red-600 text-white py-2 px-3 rounded-md hover:bg-red-700 transition-colors text-sm"
+            class="flex-1 bg-red-400 text-white py-2 px-3 rounded-md hover:bg-red-600 transition-colors text-sm font-medium"
           >
             Eliminar
           </button>
@@ -46,7 +68,6 @@
       </div>
     </div>
     
-    <!-- Create/Edit Modal -->
     <BaseModal
       :is-open="showModal"
       :title="editingProduct ? 'Editar Producto' : 'Crear Producto'"
@@ -77,15 +98,19 @@
         
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Precio</label>
-            <input
-              v-model.number="form.price"
-              type="number"
-              step="0.01"
-              min="0"
-              required
-              class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
-            />
+            <label class="block text-sm font-medium text-gray-700 mb-1">Precio (RD$)</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">$</span>
+              <input
+                v-model.number="form.price"
+                type="number"
+                step="0.01"
+                min="0"
+                required
+                class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                placeholder="0.00"
+              />
+            </div>
           </div>
           
           <div>
@@ -96,6 +121,7 @@
               min="0"
               required
               class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              placeholder="0"
             />
           </div>
         </div>
@@ -107,7 +133,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Plus } from 'lucide-vue-next';
-import { productsApi } from '../Services/api';
+import * as productosService from '../Services/Productos/productosService';
 import type { Product } from '../types';
 import BaseModal from '../components/UI/BaseModal.vue';
 import LoadingSpinner from '../components/UI/LoadingSpinner.vue';
@@ -128,7 +154,14 @@ const form = ref({
 const loadProducts = async () => {
   loading.value = true;
   try {
-    products.value = await productsApi.getAll();
+    const raw = await productosService.getAllProductos();
+    products.value = raw.map(p => ({
+      id:          p.id,
+      name:        p.nombre,
+      description: p.descripcion,
+      price:       p.precio,
+      stock:       p.stock
+    }));
   } catch (error) {
     console.error('Error cargando productos:', error);
   } finally {
@@ -156,27 +189,34 @@ const closeModal = () => {
 const saveProduct = async () => {
   saving.value = true;
   try {
+    const payload = {
+      nombre:      form.value.name,
+      descripcion: form.value.description,
+      precio:      form.value.price,
+      stock:       form.value.stock
+    };
+
     if (editingProduct.value) {
-      await productsApi.update(editingProduct.value.id, form.value);
+      await productosService.updateProducto(editingProduct.value.id, payload);
     } else {
-      await productsApi.create(form.value);
+      await productosService.createProducto(payload);
     }
     await loadProducts();
     closeModal();
   } catch (error) {
-    console.error('Error guardando productos:', error);
+    console.error('Error guardando producto:', error);
   } finally {
     saving.value = false;
   }
 };
 
 const deleteProduct = async (id: string) => {
-  if (confirm('Estas seguro de querer eliminar este producto?')) {
+  if (confirm('¿Estás seguro de querer eliminar este producto?')) {
     try {
-      await productsApi.delete(id);
+      await productosService.deleteProducto(id);
       await loadProducts();
     } catch (error) {
-      console.error('Error eliminando product:', error);
+      console.error('Error eliminando producto:', error);
     }
   }
 };
