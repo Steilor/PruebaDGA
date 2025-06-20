@@ -46,17 +46,17 @@ public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
             eb.HasOne(v => v.Cliente)
               .WithMany(c => c.Ventas)
               .HasForeignKey(v => v.ClienteId)
-              .OnDelete(DeleteBehavior.Restrict);
+              .OnDelete(DeleteBehavior.SetNull);
 
             eb.HasOne(v => v.Producto)
               .WithMany()   
               .HasForeignKey(v => v.ProductoId)
-              .OnDelete(DeleteBehavior.Restrict);
+              .OnDelete(DeleteBehavior.SetNull);
 
             eb.HasMany(v => v.DetallesVenta)
               .WithOne(dv => dv.Venta)
               .HasForeignKey(dv => dv.VentaId)
-              .OnDelete(DeleteBehavior.Cascade);
+              .OnDelete(DeleteBehavior.SetNull);
         });
 
 
@@ -72,7 +72,7 @@ public class ClnArqDbContext(DbContextOptions<ClnArqDbContext> options)
             eb.HasMany(p => p.DetallesVenta)
               .WithOne(dv => dv.Producto)
               .HasForeignKey(dv => dv.ProductoId)
-              .OnDelete(DeleteBehavior.Restrict);
+              .OnDelete(DeleteBehavior.SetNull);
         });
 
       

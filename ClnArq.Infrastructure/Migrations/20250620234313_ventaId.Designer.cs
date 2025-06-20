@@ -4,6 +4,7 @@ using ClnArq.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClnArq.Infrastructure.Migrations
 {
     [DbContext(typeof(ClnArqDbContext))]
-    partial class ClnArqDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250620234313_ventaId")]
+    partial class ventaId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,10 +74,10 @@ namespace ClnArq.Infrastructure.Migrations
                     b.Property<decimal>("PrecioUnitario")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("ProductoId")
+                    b.Property<Guid>("ProductoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("VentaId")
+                    b.Property<int>("VentaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -361,12 +364,14 @@ namespace ClnArq.Infrastructure.Migrations
                     b.HasOne("ClnArq.Domain.Entities.Producto", "Producto")
                         .WithMany("DetallesVenta")
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ClnArq.Domain.Entities.Venta", "Venta")
                         .WithMany("DetallesVenta")
                         .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Producto");
 

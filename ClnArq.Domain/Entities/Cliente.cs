@@ -11,5 +11,5 @@ public class Cliente
 
     public DateTime Creado { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Venta> Ventas { get; set; } = new List<Venta>();
+    public ICollection<Venta>? Ventas { get; set; } = new List<Venta>();
 }

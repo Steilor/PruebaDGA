@@ -7,10 +7,10 @@ public class DetalleVenta
     public decimal PrecioUnitario { get; set; }
 
   
-    public int VentaId { get; set; }
-    public Venta Venta { get; set; } = null!;
+    public int? VentaId { get; set; }
+    public Venta? Venta { get; set; } = null!;
 
  
-    public Guid ProductoId { get; set; }
-    public Producto Producto { get; set; } = null!;
+    public Guid? ProductoId { get; set; }
+    public Producto? Producto { get; set; } = null!;
 }
