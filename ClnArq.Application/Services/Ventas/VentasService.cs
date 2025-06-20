@@ -1,83 +1,79 @@
 ﻿using AutoMapper;
 using ClnArq.Application.Dtos;
+using ClnArq.Application.Dtos.Ventas;
 using ClnArq.Domain.Entities;
 using ClnArq.Domain.Exceptions;
 using ClnArq.Domain.Repositories;
 
 namespace ClnArq.Application.Services.Ventas;
 
-internal class VentasService(IVentasRepository ventasRepository,
-    IMapper mapper) : IVentasService
+internal class VentasService(IVentasRepository _ventasRepository,
+    IMapper _mapper,
+     IClientesRepository _clientesRepository,
+     IProductRepository _productosRepository) : IVentasService
 {
-    public async Task<bool> CreateVentaAsync(VentaDto ventaDto)
+    public async Task<bool> CreateVentaAsync(VentasDtoAdd dto)
     {
-        var venta = mapper.Map<Venta>(ventaDto);
-        
-        if(venta == null)
-            throw new NotFoundException();
+        var venta = _mapper.Map<Venta>(dto);
 
-        await ventasRepository.AddAsync(venta);
-        await ventasRepository.SaveChangesAsync();
+        var cliente = await _clientesRepository.GetByIdAsync(dto.ClienteId)
+                     ?? throw new NotFoundException($"Cliente {dto.ClienteId} no encontrado");
+        var producto = await _productosRepository.GetByIdAsync(dto.ProductoId)
+                      ?? throw new NotFoundException($"Producto {dto.ProductoId} no encontrado");
 
+        venta.ClienteNombre = cliente.Nombre;
+        venta.ProductoNombre = producto.Nombre;
+        venta.ProductoPrecioUnitario = producto.Precio;
+
+        venta.Total = venta.ProductoPrecioUnitario * venta.Cantidad;
+
+        await _ventasRepository.AddAsync(venta);
+        await _ventasRepository.SaveChangesAsync();
         return true;
     }
 
-    public async Task<bool> DeleteVentaAsync(int id)
+    public async Task<VentasDtoRemove> DeleteVentaAsync(int id)
     {
-        var venta = await ventasRepository.GetByIdAsync(id);
-        if(venta == null)
-            throw new NotFoundException();
+        var venta = await _ventasRepository.GetByIdAsync(id)
+                    ?? throw new NotFoundException($"Venta {id} no encontrada");
 
-         ventasRepository.Delete(venta);
-        await ventasRepository.SaveChangesAsync();
+        _ventasRepository.Delete(venta);
+        await _ventasRepository.SaveChangesAsync();
 
-        return true;
+        return new VentasDtoRemove { VentaId = id, Eliminado = true };
     }
 
-    public async Task<IEnumerable<VentaDto>> GetAllVentasAsync()
+    public async Task<IEnumerable<VentasDtoGetAll>> GetAllVentasAsync()
     {
-        var ventas = await ventasRepository.GetAllAsync();
-
+        var ventas = await _ventasRepository.GetAllAsync();
         if (ventas == null || !ventas.Any())
-            throw new NotFoundException();
+            throw new NotFoundException("No hay ventas registradas");
 
-        var ventasDto = mapper.Map<IEnumerable<VentaDto>>(ventas);
-
-        return ventasDto;
+        return _mapper.Map<IEnumerable<VentasDtoGetAll>>(ventas);
     }
 
-    public async Task<VentaDto?> GetVentaByIdAsync(int id)
+    public async Task<VentasDtoGetAll?> GetVentaByIdAsync(int id)
     {
-        var venta = await ventasRepository.GetByIdAsync(id);
+        var venta = await _ventasRepository.GetByIdAsync(id)
+                     ?? throw new NotFoundException($"Venta {id} no encontrada");
 
-        if (venta == null)
-            throw new NotFoundException();
-
-        var ventaDto = mapper.Map<VentaDto>(venta);
-
-        return ventaDto;
+        return _mapper.Map<VentasDtoGetAll>(venta);
     }
 
-    public async Task<bool> UpdateVentaAsync(VentaDto ventaDto)
+    public async Task<bool> UpdateVentaAsync(VentasDtoUpdate dto)
     {
-        var venta = await ventasRepository.GetByIdAsync(ventaDto.Id);
-        if (venta == null)
-            throw new NotFoundException();
+        var venta = await _ventasRepository.GetByIdAsync(dto.Id)
+                   ?? throw new NotFoundException($"Venta {dto.Id} no encontrada");
 
+        venta.Cantidad = dto.Cantidad;
+        venta.Fecha = dto.Date;
+        venta.ProductoPrecioUnitario = dto.PrecioUnico;
+        venta.ProductoNombre = dto.NombreProducto;
 
-        venta.Cantidad = ventaDto.Cantidad;
-        venta.Fecha = ventaDto.Date;
-        venta.Total = ventaDto.TotalAmount;
-        venta.ClienteId = ventaDto.ClienteId;
-        venta.ProductoId = ventaDto.ProductoId;
+        venta.Total = venta.ProductoPrecioUnitario * venta.Cantidad;
 
-        venta.ClienteNombre =ventaDto.NombreCliente;
-        venta.ProductoNombre = ventaDto.NombreProducto;
-        venta.ProductoPrecioUnitario = ventaDto.PrecioUnico;
-
-        ventasRepository.Update(venta);
-        await ventasRepository.SaveChangesAsync();
-
+        _ventasRepository.Update(venta);
+        await _ventasRepository.SaveChangesAsync();
         return true;
     }
 

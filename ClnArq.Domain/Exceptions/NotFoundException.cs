@@ -1,5 +1,5 @@
 ﻿namespace ClnArq.Domain.Exceptions;
 
-public class NotFoundException : Exception
+public class NotFoundException (string mensaje) : Exception (mensaje)
 {
 }

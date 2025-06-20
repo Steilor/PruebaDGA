@@ -1,6 +1,5 @@
-﻿using ClnArq.Application.Dtos;
+﻿using ClnArq.Application.Dtos.Clientes;
 using ClnArq.Application.Services.Clientes;
-using ClnArq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClnArq.API.Controllers;
@@ -11,7 +10,7 @@ public class ClientesController(IClientesService clientesService) : ControllerBa
 {
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ClienteDto>>> GetAllVentas()
+    public async Task<ActionResult<IEnumerable<ClientesDtoGetAll>>> GetAllClientes()
     {
         var clientes = await clientesService.GetAllClientesAsync();
         return Ok(clientes);
@@ -19,7 +18,7 @@ public class ClientesController(IClientesService clientesService) : ControllerBa
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Cliente>> GetById(Guid id)
+    public async Task<ActionResult<ClientesDtoGetAll>> GetById(Guid id)
     {
         var cliente = await clientesService.GetClienteByIdAsync(id);
         return Ok(cliente);
@@ -27,18 +26,18 @@ public class ClientesController(IClientesService clientesService) : ControllerBa
 
 
     [HttpPost]
-    public async Task<IActionResult> CreateProduct([FromBody] ClienteDto cliente)
+    public async Task<IActionResult> CreateCliente([FromBody] ClientesDtoAdd dto)
     {
-        await clientesService.CreateClienteAsync(cliente);
+        await clientesService.CreateClienteAsync(dto);
         return NoContent();
     }
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] ClienteDto cliente) //Aqui quite el id de parametro probar la asignacion
+    public async Task<IActionResult> Update(Guid id, [FromBody] ClientesDtoUpdate dto) //Aqui quite el id del parametro. probar la asignacion
     {
-        cliente.Id = id;
-        var updated = await clientesService.UpdateClienteAsync(cliente);
+        dto.Id = id;
+        var updated = await clientesService.UpdateClienteAsync(dto);
 
         if (!updated)
             return NotFound();
@@ -48,13 +47,13 @@ public class ClientesController(IClientesService clientesService) : ControllerBa
 
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<ActionResult<ClientesDtoRemove>> Delete(Guid id)
     {
-        var deleted = await clientesService.DeleteClienteAsync(id);
+        var result = await clientesService.DeleteClienteAsync(id);
 
-        if (!deleted)
+        if (!result.Eliminado)
             return NotFound();
 
-        return NoContent();
+        return Ok(result);
     }
 }

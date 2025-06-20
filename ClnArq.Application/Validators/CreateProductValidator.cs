@@ -1,9 +1,10 @@
 ﻿using ClnArq.Application.Dtos;
+using ClnArq.Application.Dtos.Productos;
 using FluentValidation;
 
 namespace ClnArq.Application.Validators;
 
-public class CreateProductValidator : AbstractValidator<ProductoDto>
+public class CreateProductValidator : AbstractValidator<ProductosDtoAdd>
 {
     public CreateProductValidator()
     {

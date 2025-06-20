@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClnArq.Application.Dtos;
+using ClnArq.Application.Dtos.Productos;
 using ClnArq.Domain.Entities;
 using ClnArq.Domain.Exceptions;
 using ClnArq.Domain.Repositories;
@@ -10,51 +11,59 @@ internal class ProductService(IProductRepository _storeRepository,
     IMapper mapper) : IProductService
 {
 
-    public async Task<IEnumerable<ProductoDto>> GetAllProductosAsync()
+    public async Task<IEnumerable<ProductosDtoGetAll>> GetAllProductosAsync()
     {
         var productos = await _storeRepository.GetAllAsync();
-        var productosDto = mapper.Map<IEnumerable<ProductoDto>>(productos);
 
-        return productosDto;
+        return mapper.Map<IEnumerable<ProductosDtoGetAll>>(productos);
     }
 
-    public async Task<ProductoDto?> GetProductoByIdAsync(Guid id)
+    public async Task<ProductosDtoGetAll?> GetProductoByIdAsync(Guid id)
     {
         var producto = await _storeRepository.GetByIdAsync(id);
-        var productoDto = mapper.Map<ProductoDto>(producto);
-        return productoDto;
+        if (producto == null) 
+            throw new NotFoundException($"Producto con Id {id} no encontrado.");
+
+        return mapper.Map<ProductosDtoGetAll>(producto);
     }
 
-    public async Task<bool> CreateProductoAsync(ProductoDto productoDto)
+    public async Task<bool> CreateProductoAsync(ProductosDtoAdd productoDto)
     {
         var producto = mapper.Map<Producto>(productoDto);
-
         await _storeRepository.AddAsync(producto);
         await _storeRepository.SaveChangesAsync();
         return true;
     }
 
-    public async Task<bool> UpdateProductoAsync(ProductoDto productoDto)
+    public async Task<bool> UpdateProductoAsync(ProductosDtoUpdate productoDto)
     {
-        var exists = await _storeRepository.ExistsAsync(productoDto.Id);
-        if (!exists)
-            return false;
-        var producto = mapper.Map<Producto>(productoDto);
+        var existing = await _storeRepository.GetByIdAsync(productoDto.Id);
+        if (existing == null)
+            throw new NotFoundException($"Producto con Id {productoDto.Id} no encontrado.");
 
-        _storeRepository.Update(producto);
+        existing.Nombre = productoDto.Nombre;
+        existing.Descripcion = productoDto.Descripcion;
+        existing.Precio = productoDto.Precio;
+        existing.Stock = productoDto.Stock;
 
+        _storeRepository.Update(existing);
         await _storeRepository.SaveChangesAsync();
         return true;
     }
 
-    public async Task<bool> DeleteProductoAsync(Guid id)
+    public async Task<ProductosDtoRemove> DeleteProductoAsync(Guid id)
     {
         var producto = await _storeRepository.GetByIdAsync(id);
         if (producto == null)
-            throw new NotFoundException();
+            throw new NotFoundException($"Producto con Id {id} no encontrado.");
 
         _storeRepository.Delete(producto);
         await _storeRepository.SaveChangesAsync();
-        return true;
+
+        return new ProductosDtoRemove
+        {
+            ProductoId = id,
+            Eliminado = true
+        };
     }
 }

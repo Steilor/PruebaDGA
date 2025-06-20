@@ -8,10 +8,10 @@ public class Venta
     public decimal Total { get; set; }
 
     public Guid ClienteId { get; set; }
-    public Cliente Cliente { get; set; }  
+    public Cliente Cliente { get; set; } = null!;
 
     public Guid ProductoId { get; set; }
-    public Producto Producto { get; set; }
+    public Producto Producto { get; set; } = null!;
 
  
     public string ClienteNombre { get; set; } = string.Empty;
