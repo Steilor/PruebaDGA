@@ -155,22 +155,28 @@ npm run build
 ## Capturas del Frontend
 
 ### Página Principal
-![image](https://github.com/user-attachments/assets/7c86096f-b36e-4978-b57d-b370874698b8)
+![image](https://github.com/user-attachments/assets/5d07fd8e-8287-45b6-998d-f0252676c6bd)
+
 
 ### Gestión de Productos
-![image](https://github.com/user-attachments/assets/f6ee95c7-cb6d-4304-86c3-905543365333)
+![image](https://github.com/user-attachments/assets/683fab03-3744-4ada-b7bb-56112230aa38)
 
-### Lista de Productos
-![image](https://github.com/user-attachments/assets/37f2bf04-b92d-41f3-af1e-ce4d7cc24615)
+![image](https://github.com/user-attachments/assets/0c162fef-4385-43f8-9a11-908aae537e7e)
+
 
 ### Gestión de Clientes
-![image](https://github.com/user-attachments/assets/a6b253cb-1836-40ed-b3cc-697e97c96247)
+![image](https://github.com/user-attachments/assets/2ded4340-5bf4-4893-97e4-cdcdba0e2cff)
+
+![image](https://github.com/user-attachments/assets/be5712a9-b740-4a24-bfa8-bcee42846534)
+
 
 ### Registro de Ventas
-![image](https://github.com/user-attachments/assets/8fde64a7-2a09-45ef-ad1b-d262bb5a6cbc)
+![image](https://github.com/user-attachments/assets/847f61c8-86bd-4e6e-a5af-b37081be5135)
+
 
 ### Gestión de Ventas
-![image](https://github.com/user-attachments/assets/28ca823d-6cad-44d6-9a10-42d11d391032)
+![image](https://github.com/user-attachments/assets/994498a8-7624-4394-b25b-37768d2c6201)
+
 
 ---
 
